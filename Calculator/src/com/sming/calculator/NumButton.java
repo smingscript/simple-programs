@@ -15,37 +15,39 @@ public class NumButton implements ActionListener{
     private LinkedList<String> equation;
     private StringBuilder returnNum = new StringBuilder();
     private StringBuilder tempNum = new StringBuilder();
-    private String total;
-
+    static Boolean isLongNum; 
+    
+    public NumButton() {}
+    
     public NumButton(JTextField valueField, String btnText, LinkedList<String> equation) {
-        this.valueField= valueField;
-        //valueField.setText("");
+    	System.out.println("Created Button Instance");
+    	this.valueField= valueField;
         this.btnText = btnText;
         this.equation  = equation;
+        isLongNum = false;
     }
 
     @Override
     public void actionPerformed(ActionEvent arg0) { 
-    	
-    	if(returnNum.length() == 0) {
-    		total = "";
-    	}
-    	
-    	System.out.println("this is tempNum before : " + tempNum);
+    	System.out.println(isLongNum);
+    	String setValues;
         tempNum.append(btnText) ;
-        System.out.println("this is tempNum: " + tempNum);
-        //returnNum.append(valueField.getText());
         returnNum.append(tempNum);
-        System.out.println("this is returnNum: " + returnNum);
-        for(int i = 0; i < returnNum.length(); i++) {
-        	total += returnNum.substring(i);
-        }
-        System.out.println("this is total: " + total);
         tempNum.deleteCharAt(0);
-        System.out.println("this is tempNum: " + tempNum);
-        valueField.setText(total);
-        System.out.println("Hi!");
-        equation.add(total);
+        
+        //숫자를 재입력하는 경우에 valudField가 reset
+        if(isLongNum)
+        	setValues = valueField.getText() + returnNum.toString();
+        else {
+        	valueField.setText("");
+        	setValues = valueField.getText() + returnNum.toString();
+        }
+
+        valueField.setText(setValues);   
+        equation.add(returnNum.toString());
+        
         returnNum.deleteCharAt(0);
+        isLongNum = true;
     }
+
 }

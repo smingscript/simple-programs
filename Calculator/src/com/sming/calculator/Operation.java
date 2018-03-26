@@ -18,8 +18,8 @@ public class Operation implements ActionListener {
     private String prevOp;
     
     private LinkedList<String> equation;
-    private static Stack<String> numbers;
-    private static Stack<String> operators;
+    private Stack<String> numbers;
+    private Stack<String> operators;
     
     
     private int currentWeight;
@@ -86,17 +86,21 @@ public class Operation implements ActionListener {
         	//currentOp가 prevOp보다 weight가 작으면 숫자 스택에서 두 숫자를 pop한 후에 prevOp와 연산한다.
         	//[* /] -> [+ -]
         	if(previousWeight != 3 && currentWeight < previousWeight) {
-        		System.out.println(operators);
-        		System.out.println(numbers);
-        		System.out.println("currentOp: " + currentOp + " previousOp: " + prevOp );
-        		//String temp = numbers.pop();
-        		right = Integer.parseInt(numbers.pop());
-        		left = Integer.parseInt(numbers.pop());
-        		System.out.println("left: " + left + "right: " + right);
-        		result = calculate(prevOp, left, right);
-        		numbers.push(Integer.toString(result));
+        		//while을 이용해서 스택 끝까지 다 계산하기
+        		while(true) {
+
+            		right = Integer.parseInt(numbers.pop());
+            		left = Integer.parseInt(numbers.pop());            		
+            		result = calculate(prevOp, left, right);
+            		
+            		numbers.push(Integer.toString(result));
+            		            		
+            		if(operators.empty())
+            			break;
+            		else
+            			prevOp = operators.pop();
+        		}
         		operators.push(currentOp);
-        		
         		updateValueField(Integer.toString(result));
         	}
         	
@@ -116,7 +120,8 @@ public class Operation implements ActionListener {
             		//괄호 내의 다음 연산자들을 꺼낸다
             		prevOp = operators.pop();
         		}
-        		operators.push(currentOp);
+        		System.out.println("Yes out of while statement");
+        		//operators.push(currentOp);
         		updateValueField(Integer.toString(result));
         	}
         	

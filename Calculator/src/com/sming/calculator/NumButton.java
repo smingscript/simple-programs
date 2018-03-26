@@ -15,6 +15,7 @@ public class NumButton implements ActionListener{
     private LinkedList<String> equation;
     private StringBuilder returnNum = new StringBuilder();
     private StringBuilder tempNum = new StringBuilder();
+    
     static Boolean isLongNum; 
     
     

@@ -13,10 +13,6 @@ public class Calculator extends JFrame {
     private JTextField valueField;
     private JTextField equationField;
 
-    private JPanel inputField;
-    private JPanel numberPanel;
-    private JPanel operPanel;
-    private JPanel utilPanel;
     private JButton zero,one,two,three,four,five,six,seven,eight,nine;
     private JButton plus,minus,mul,divide;
     private JButton equal,back,clear, clrErr;
@@ -25,10 +21,7 @@ public class Calculator extends JFrame {
     static StringBuffer op;
     static StringBuffer firstValue = new StringBuffer("0");
     static StringBuffer secondValue = new StringBuffer("0");
-//    static String op;
-//    static String firstValue = "0";
-//    static String secondValue = "0";
-    //static String mulValue = NumButton.returnNum;
+
     static String mulValue = "";
     static int multiply;
     static int priorResult;

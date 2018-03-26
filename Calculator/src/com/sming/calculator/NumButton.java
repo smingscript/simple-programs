@@ -17,7 +17,6 @@ public class NumButton implements ActionListener{
     private StringBuilder tempNum = new StringBuilder();
     static Boolean isLongNum; 
     
-    public NumButton() {}
     
     public NumButton(JTextField valueField, String btnText, LinkedList<String> equation) {
     	System.out.println("Created Button Instance");

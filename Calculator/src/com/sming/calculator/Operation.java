@@ -43,7 +43,6 @@ public class Operation implements ActionListener {
     	
     	operators = new Stack<String>();
     	numbers = new Stack<String>();
-    	
     }
 
     @Override
@@ -52,7 +51,10 @@ public class Operation implements ActionListener {
     	
     	//NumButton에서 숫자를 가져온 후 스택에 push한다.
     	System.out.println("Value input: " + valueField.getText());
+    	
     	numbers.push(valueField.getText());
+    	
+    	valueField.setText("");
     	
     	//처음 연산자가 스택에 없으면 일단 스택에 집어넣는다.
     	if(operators.isEmpty()) {
@@ -207,10 +209,10 @@ public class Operation implements ActionListener {
     private void updateValueField(String result) {
     	//결과를 equationField와 valueField에 저장한다.
     	valueField.setText(result);
+    	NumButton.isLongNum = false;
     }
     
-    //////////////////////////////////////////////////
-    
+    /*
     private int operToNum(String operator) {
     	if(operator.matches(".*[+\\-].*")) {
     		return 1;
@@ -260,4 +262,5 @@ public class Operation implements ActionListener {
     public void equals() {
     	
     }
+    */
 }

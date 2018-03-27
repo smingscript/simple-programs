@@ -18,8 +18,8 @@ public class Operation implements ActionListener {
     private String prevOp;
     
     private LinkedList<String> equation;
-    private Stack<String> numbers;
-    private Stack<String> operators;
+    private static Stack<String> numbers;
+    private static Stack<String> operators;
     
     
     private int currentWeight;
@@ -47,7 +47,6 @@ public class Operation implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
-    	//operText를 currentOp에 저장한다, 생성자 이용
     	
     	//NumButton에서 숫자를 가져온 후 스택에 push한다.
     	System.out.println("Value input: " + valueField.getText());
@@ -59,11 +58,13 @@ public class Operation implements ActionListener {
     	//처음 연산자가 스택에 없으면 일단 스택에 집어넣는다.
     	if(operators.isEmpty()) {
     		System.out.println("Hello, we've just started Calculator and pushed you're first input");
+    		
     		operators.push(currentOp);
     		System.out.println(operators);
     	}
     	//연산자 스택에서 이전 연산자를 pop해서 prevOP에 저장한다.
     	else {
+    		System.out.println("you have operators in operators stack");
     		prevOp = operators.pop();
     		
     		//연산자의 weight를 업데이트
@@ -76,9 +77,13 @@ public class Operation implements ActionListener {
     		//왼쪽 괄호가 나온 직후, 연산자를 넣을 때 계산이 되지 않도록.
     		//[(] -> [+ - * /] || [+ -] -> [* /]
         	if(prevOp == "(" || currentWeight > previousWeight) {
+        		if(numbers.indexOf("0") == 0)
+        			numbers.remove(0);
+        		
         		System.out.println(operators);
         		System.out.println(numbers);
         		System.out.println("currentOp: " + currentOp + " previousOp: " + prevOp );
+        		
         		operators.push(prevOp);
         		operators.push(currentOp);
         	}
@@ -88,39 +93,60 @@ public class Operation implements ActionListener {
         	if(previousWeight != 3 && currentWeight < previousWeight) {
         		//while을 이용해서 스택 끝까지 다 계산하기
         		while(true) {
-
+        			
+        			if(prevOp == "(")
+        				break;
+        			
+        			System.out.println("I'm here" + prevOp);	
             		right = Integer.parseInt(numbers.pop());
             		left = Integer.parseInt(numbers.pop());            		
             		result = calculate(prevOp, left, right);
             		
             		numbers.push(Integer.toString(result));
-            		            		
+            		System.out.println("numbers state: " + numbers);
+            		System.out.println("operators state: " + operators);
+            		
             		if(operators.empty())
             			break;
             		else
             			prevOp = operators.pop();
         		}
+        		operators.push("(");
         		operators.push(currentOp);
         		updateValueField(Integer.toString(result));
         	}
         	
+        	//괄호 이 전에 식이 있었을 때 괄호 계산이 끝난 후 나머지와 다시 연산
+        	
+        	
         	//오른쪽 괄호가 나왔을 때 연산, ( 가 나오기 전까지 연산한다.
         	if(currentOp == ")") {
+        		System.out.println("Met last parenthesis");
         		System.out.println(operators);
         		System.out.println(numbers);
-        		while(prevOp == "(") {
+        		while(true) {
+        			
+        			
+        			System.out.println(operators);
+            		System.out.println(numbers);
+            		
+        			System.out.println("Calculation inside parenthesis");
         			System.out.println("currentOp: " + currentOp + " previousOp: " + prevOp );
-        			right = Integer.parseInt(numbers.pop());
-            		left = Integer.parseInt(numbers.pop());
-            		System.out.println("left: " + left + "right: " + right);
-            		result = calculate(prevOp, left, right);
-            		
-            		numbers.push(Integer.toString(result));
-            		
-            		//괄호 내의 다음 연산자들을 꺼낸다
-            		prevOp = operators.pop();
+        			
+        			if(operators.pop().equals("("))
+        				break;
+        			else {
+        				right = Integer.parseInt(numbers.pop());
+                		left = Integer.parseInt(numbers.pop());
+                		System.out.println("left: " + left + " right: " + right);
+                		result = calculate(prevOp, left, right);
+                		System.out.println(result);
+                		
+                		numbers.push(Integer.toString(result));
+                		operators.pop();
+        			}
         		}
-        		System.out.println("Yes out of while statement");
+        		System.out.println("out of while statement");
         		//operators.push(currentOp);
         		updateValueField(Integer.toString(result));
         	}
@@ -197,7 +223,7 @@ public class Operation implements ActionListener {
 		return result;
     }
     
-    //결과 값을 GUI에 표시하도록 Calculator 필드를 업데이트
+    //GUI의 사용자가 입력한 식이 표시하도록 업데이트
     private void updateEquationField() {
     	//결과를 equationField와 valueField에 저장한다.
     	String newText = "";
@@ -210,62 +236,10 @@ public class Operation implements ActionListener {
         equationField.setText(newText);
     }
     
-    //
+    //결과 값을 GUI에 표시하도록 업데이트
     private void updateValueField(String result) {
     	//결과를 equationField와 valueField에 저장한다.
     	valueField.setText(result);
     	NumButton.isLongNum = false;
     }
-    
-    /*
-    private int operToNum(String operator) {
-    	if(operator.matches(".*[+\\-].*")) {
-    		return 1;
-    	}else {
-    		return -1;
-    	}
-    }
-    
-    public int OperExchange(int preOp, int postOp) {
-      	return preOp * postOp;
-    }
-    
-    public void plusMinusOp() {
-    	//처음 눌리거나 중간에 0을 누른 경우
-    	if(valueField.getText() == "0") {
-    		left = Integer.parseInt(valueField.getText());
-    	}
-    	right = Integer.parseInt(NumButton.returnNum);
-    	
-    	Calculator.firstValue.replace(0, Calculator.firstValue.length(), valueField.getText());
-    	Calculator.op.setCharAt(0, oprText);
-		valueField.setText("");
-		valueField.setText(Integer.toString(left + right));
-		//다음 덧셈을 위해서 저장해두기
-		left = right;
-    	
-    	
-    }
-    
-    public void mulDivOp() {
-    	
-    }
-    
-    public void priorOp() {
-    	int previousResult = Integer.parseInt(valueField.getText());
-    	
-    	while(!Calculator.op.substring(0).matches(".*[+\\-].*")) {
-    		result = left * right;
-    		
-    	}
-    }
-    
-    public void parenthesis() {
-    	
-    }
-    
-    public void equals() {
-    	
-    }
-    */
 }

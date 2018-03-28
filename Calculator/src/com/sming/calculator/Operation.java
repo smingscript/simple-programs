@@ -91,12 +91,10 @@ public class Operation implements ActionListener {
         	//currentOp가 prevOp보다 weight가 작으면 숫자 스택에서 두 숫자를 pop한 후에 prevOp와 연산한다.
         	//[* /] -> [+ -]
         	if(previousWeight != 3 && currentWeight < previousWeight) {
+        		System.out.println("lower weight!");
+        		operators.push(currentOp);
         		//while을 이용해서 스택 끝까지 다 계산하기
-        		while(true) {
-        			
-        			if(prevOp == "(")
-        				break;
-        			
+        		while(true) {	
         			System.out.println("I'm here" + prevOp);	
             		right = Integer.parseInt(numbers.pop());
             		left = Integer.parseInt(numbers.pop());            		
@@ -106,27 +104,28 @@ public class Operation implements ActionListener {
             		System.out.println("numbers state: " + numbers);
             		System.out.println("operators state: " + operators);
             		
-            		if(operators.empty())
+            		prevOp = operators.pop();
+            		
+            		if(operators.isEmpty() || operators.peek() == "(") {
+            			if(prevOp == "(")
+            				operators.push("(");
             			break;
-            		else
-            			prevOp = operators.pop();
+            		}
+            			
         		}
-        		operators.push("(");
+        		//괄호 계산을 끝낸 후에 전체 게산을 진행한다.
+
+        		System.out.println("end!");
         		operators.push(currentOp);
         		updateValueField(Integer.toString(result));
         	}
-        	
-        	//괄호 이 전에 식이 있었을 때 괄호 계산이 끝난 후 나머지와 다시 연산
-        	
-        	
+
         	//오른쪽 괄호가 나왔을 때 연산, ( 가 나오기 전까지 연산한다.
         	if(currentOp == ")") {
         		System.out.println("Met last parenthesis");
         		System.out.println(operators);
         		System.out.println(numbers);
         		while(true) {
-        			
-        			
         			System.out.println(operators);
             		System.out.println(numbers);
             		
@@ -136,22 +135,24 @@ public class Operation implements ActionListener {
         			if(operators.pop().equals("("))
         				break;
         			else {
-        				right = Integer.parseInt(numbers.pop());
-                		left = Integer.parseInt(numbers.pop());
-                		System.out.println("left: " + left + " right: " + right);
-                		result = calculate(prevOp, left, right);
-                		System.out.println(result);
-                		
-                		numbers.push(Integer.toString(result));
-                		operators.pop();
+	    				right = Integer.parseInt(numbers.pop());
+	            		left = Integer.parseInt(numbers.pop());
+	            		System.out.println("left: " + left + " right: " + right);
+	            		result = calculate(prevOp, left, right);
+	            		System.out.println(result);
+	            		
+	            		numbers.push(Integer.toString(result));
+	            		operators.pop();
         			}
         		}
         		System.out.println("out of while statement");
-        		//operators.push(currentOp);
+        		System.out.println("numbers state: " + numbers);
+        		System.out.println("operators state: " + operators);
+        		//괄호 이 전에 식이 있었을 때 괄호 계산이 끝난 후 나머지와 다시 연산
+
         		updateValueField(Integer.toString(result));
         	}
-        	
-        	//Same number problem
+
         	//currentOp와 prevOp의 weight가 같으면 숫자 스택에서 두 숫자를 pop한 후에 prevOp와 연산한다.
         	//[+ -] -> [+ -] / [* /] -> [* /]
         	if(currentWeight == previousWeight) {
@@ -166,7 +167,6 @@ public class Operation implements ActionListener {
         		updateValueField(Integer.toString(result));
         	}
     	}
-    	
     	updateEquationField();
     }
     

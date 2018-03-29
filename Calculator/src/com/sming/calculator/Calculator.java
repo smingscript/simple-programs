@@ -19,12 +19,6 @@ public class Calculator extends JFrame {
     private JButton leftParen, rightParen;
     
     static StringBuffer op;
-    static StringBuffer firstValue = new StringBuffer("0");
-    static StringBuffer secondValue = new StringBuffer("0");
-
-    static String mulValue = "";
-    static int multiply;
-    static int priorResult;
 
     private LinkedList<String> equation; //전체 계산식이 표시되는 부분
     
@@ -99,7 +93,7 @@ public class Calculator extends JFrame {
         rightParen.addActionListener(new Operation(valueField, equationField, ")", equation));
 
         //기능 버튼 actionListener
-        equal.addActionListener(new Equal(valueField));
+        equal.addActionListener(new Equal(valueField, equationField));
         clear.addActionListener(new Clear(valueField, equation));
         clrErr.addActionListener(new ClearErr(valueField, equation));
         back.addActionListener(new Back(valueField));

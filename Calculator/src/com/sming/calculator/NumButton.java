@@ -20,7 +20,6 @@ public class NumButton implements ActionListener{
     
     
     public NumButton(JTextField valueField, String btnText, LinkedList<String> equation) {
-    	System.out.println("Created Button Instance");
     	this.valueField= valueField;
         this.btnText = btnText;
         this.equation  = equation;
@@ -29,7 +28,6 @@ public class NumButton implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent arg0) { 
-    	System.out.println(isLongNum);
     	String setValues;
         tempNum.append(btnText) ;
         returnNum.append(tempNum);

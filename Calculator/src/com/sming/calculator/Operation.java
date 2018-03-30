@@ -113,39 +113,49 @@ public class Operation implements ActionListener {
 
         	//오른쪽 괄호가 나왔을 때 연산, ( 가 나오기 전까지 연산한다.
         	if(currentOp == ")") {
+        		operators.pop();
         		while(true) {
-        			if(operators.pop().equals("("))
+        			//스택이 비었는지를 먼저 확인해야한다
+        			prevOp = operators.pop();
+        			if(operators.isEmpty() || prevOp.equals("("))
         				break;
         			else {
+        				System.out.println("I'n In!");
+        				//prevOp = operators.pop();
 	    				right = Integer.parseInt(numbers.pop());
 	            		left = Integer.parseInt(numbers.pop());
-
+	            		System.out.println("right: " + right + "left: " + left + "PrevOp: " + prevOp);
 	            		result = calculate(prevOp, left, right);
 	            		
 	            		numbers.push(Integer.toString(result));
 	            		System.out.println(numbers);
 	            		System.out.println(operators);
-	            		operators.pop();
+	            		
         			}
         		}
 
         		//괄호 이 전에 식이 있었을 때 괄호 계산이 끝난 후 나머지와 다시 연산
-        		right = Integer.parseInt(numbers.pop());
+        		
+        		//만약 괄호계산 다음에  * 이 계속 들어온다면 결과값에 해야한다.
+        		//+ 연산이 들어오면 전 값과 연산한다
+        		//* 연산이 들어오면 전 값을 꺼내지 않고 [* /] -> [+ -] 연산으로 돌린다
+        		
         		if(!numbers.isEmpty()) {
+        			right = Integer.parseInt(numbers.pop());
             		left = Integer.parseInt(numbers.pop());
             		prevOp = operators.pop();
             		result = calculate(prevOp, left, right);
         		}
         		
         		updateValueField(Integer.toString(result));
-
         	}
 
         	//currentOp와 prevOp의 weight가 같으면 숫자 스택에서 두 숫자를 pop한 후에 prevOp와 연산한다.
         	//[+ -] -> [+ -] / [* /] -> [* /]
         	if(currentWeight == previousWeight) {
-        		right = Integer.parseInt(numbers.pop());
+        		
         		if(!numbers.isEmpty()) {
+        			right = Integer.parseInt(numbers.pop());
         			left = Integer.parseInt(numbers.pop());
             		result = calculate(prevOp, left, right);
             		

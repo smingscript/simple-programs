@@ -21,5 +21,4 @@ public class Back implements ActionListener {
             valueField.setText(temp.substring(0, temp.length()-1));
         }
     }
-
 }

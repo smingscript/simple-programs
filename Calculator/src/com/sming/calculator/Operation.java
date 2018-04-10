@@ -76,6 +76,7 @@ public class Operation implements ActionListener {
     		//왼쪽 괄호가 나왔을 때, 괄호도 제일 크므로 계속 쌓아간다.
     		//왼쪽 괄호가 나온 직후, 연산자를 넣을 때 계산이 되지 않도록.
     		//[(] -> [+ - * /] || [+ -] -> [* /]
+    		System.out.println("Checking the preOp before parenthesis 1 : " + prevOp);
         	if(prevOp == "(" || currentWeight > previousWeight) {
         		System.out.println("HEY!");
         		if(numbers.indexOf("0") == 0)
@@ -87,10 +88,12 @@ public class Operation implements ActionListener {
         	
         	//currentOp가 prevOp보다 weight가 작으면 숫자 스택에서 두 숫자를 pop한 후에 prevOp와 연산한다.
         	//[* /] -> [+ -]
+        	System.out.println("Checking the preOp before parenthesis 2 : " + prevOp);
         	if(previousWeight != 3 && currentWeight < previousWeight) {
         		operators.push(currentOp);
         		//while을 이용해서 스택 끝까지 다 계산하기
         		while(true) {	
+        			System.out.println(" 2: right: " + right + "left: " + left + "PrevOp: " + prevOp);
             		right = Integer.parseInt(numbers.pop());
             		left = Integer.parseInt(numbers.pop());            		
             		result = calculate(prevOp, left, right);
@@ -110,21 +113,26 @@ public class Operation implements ActionListener {
         		operators.push(currentOp);
         		updateValueField(Integer.toString(result));
         	}
-
+        	System.out.println("Checking the preOp before parenthesis 3 : " + prevOp);
         	//오른쪽 괄호가 나왔을 때 연산, ( 가 나오기 전까지 연산한다.
         	if(currentOp == ")") {
         		operators.pop();
+        		
         		while(true) {
         			//스택이 비었는지를 먼저 확인해야한다
         			prevOp = operators.pop();
-        			if(operators.isEmpty() || prevOp.equals("("))
+        			if(operators.isEmpty() || prevOp.equals("(")) {
+//        				numbers.push(Integer.toString(result));
+        				updateValueField(Integer.toString(result));
         				break;
+        			}
+        				
         			else {
-        				System.out.println("I'n In!");
+        				System.out.println("I'm In!");
         				//prevOp = operators.pop();
 	    				right = Integer.parseInt(numbers.pop());
 	            		left = Integer.parseInt(numbers.pop());
-	            		System.out.println("right: " + right + "left: " + left + "PrevOp: " + prevOp);
+	            		System.out.println(" 2 : right: " + right + "left: " + left + "PrevOp: " + prevOp);
 	            		result = calculate(prevOp, left, right);
 	            		
 	            		numbers.push(Integer.toString(result));
@@ -133,32 +141,36 @@ public class Operation implements ActionListener {
 	            		
         			}
         		}
-
-        		//괄호 이 전에 식이 있었을 때 괄호 계산이 끝난 후 나머지와 다시 연산
-        		
-        		//만약 괄호계산 다음에  * 이 계속 들어온다면 결과값에 해야한다.
-        		//+ 연산이 들어오면 전 값과 연산한다
-        		//* 연산이 들어오면 전 값을 꺼내지 않고 [* /] -> [+ -] 연산으로 돌린다
-        		
-        		if(!numbers.isEmpty()) {
-        			right = Integer.parseInt(numbers.pop());
-            		left = Integer.parseInt(numbers.pop());
-            		prevOp = operators.pop();
-            		result = calculate(prevOp, left, right);
-        		}
-        		
-        		updateValueField(Integer.toString(result));
+//        		//괄호 이전의 연산자까지 여기서 다 해결한다
+//        		System.out.println("Checking the preOp: " + prevOp);
+//        		System.out.println("Checking the currentOp: " + currentOp);
+//        		//괄호 이 전에 식이 있었을 때 괄호 계산이 끝난 후 나머지와 다시 연산
+//        		
+//        		//만약 괄호계산 다음에  * 이 계속 들어온다면 결과값에 해야한다.
+//        		//+ 연산이 들어오면 전 값과 연산한다
+//        		//* 연산이 들어오면 전 값을 꺼내지 않고 [* /] -> [+ -] 연산으로 돌린다
+//        		
+//        		left = Integer.parseInt(numbers.pop());
+//        		if(!numbers.isEmpty()) {
+//        			right = Integer.parseInt(numbers.pop());
+//            		prevOp = operators.pop();
+//            		result = calculate(prevOp, left, right);
+//        		}
+//        		
+//        		updateValueField(Integer.toString(result));
+//        		System.out.println("Checking the operators: " + operators);
         	}
 
         	//currentOp와 prevOp의 weight가 같으면 숫자 스택에서 두 숫자를 pop한 후에 prevOp와 연산한다.
         	//[+ -] -> [+ -] / [* /] -> [* /]
+        	System.out.println("Checking the preOp before parenthesis 4 : " + prevOp);
         	if(currentWeight == previousWeight) {
-        		
+        		System.out.println(" 3 : right: " + right + "left: " + left + "PrevOp: " + prevOp);
+    			right = Integer.parseInt(numbers.pop());
         		if(!numbers.isEmpty()) {
-        			right = Integer.parseInt(numbers.pop());
         			left = Integer.parseInt(numbers.pop());
             		result = calculate(prevOp, left, right);
-            		
+            		System.out.println(" 3 : right: " + right + "left: " + left + "PrevOp: " + prevOp);
             		numbers.push(Integer.toString(result));
             		operators.push(currentOp);
             		
@@ -171,7 +183,7 @@ public class Operation implements ActionListener {
     }
     
     private int defineOperatorWeight(String operator) {
-    	int weight = 0;;
+    	int weight = 0;
     	
     	switch (operator) {
 	    	case "(":

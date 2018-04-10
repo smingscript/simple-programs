@@ -38,6 +38,7 @@ public class Equal implements ActionListener {
     public void actionPerformed(ActionEvent e) {
     	/*
     	 * equationField에 있는 나머지 값과 연산자를 강제적으로 계산하여 결과를 낸다 
+    	 * 전체 식을 다 돌아보는 것으로 수정하기
     	 */
     	
     	lastInput = valueField.getText();

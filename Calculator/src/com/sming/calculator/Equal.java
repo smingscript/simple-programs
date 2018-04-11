@@ -40,7 +40,9 @@ public class Equal implements ActionListener {
     	 * equationField에 있는 나머지 값과 연산자를 강제적으로 계산하여 결과를 낸다 
     	 * 전체 식을 다 돌아보는 것으로 수정하기
     	 */
-    	
+    	System.out.println("print operators in Equals: " + operators);
+    	System.out.println("print numbers in Equals: " + numbers);
+    	System.out.println(equationField.getText());
     	lastInput = valueField.getText();
     	preInput = numbers.pop();
     	operator = operators.pop();
@@ -55,15 +57,17 @@ public class Equal implements ActionListener {
 		
 		
 		operation.updateValueField(Integer.toString(result));
+		updateEquationField();
 
     }
-    
+    //여기 변경
     private void updateEquationField() {
     	//결과를 equationField와 valueField에 저장한다.
     	String newText = "";
 
-        //equation.add(currentOp);
-        
+//        operator.(operator);
+//        operator.Add(lastInput);
+//        
 //        for(String text: equation){
 //            newText += text;
 //        }

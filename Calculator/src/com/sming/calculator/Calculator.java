@@ -20,9 +20,7 @@ public class Calculator extends JFrame {
     
     static StringBuffer op;
 
-    private LinkedList<String> equation; //전체 계산식이 표시되는 부분
-    
-    static LinkedList<String> operationList; //계산을 할 때 썼던 스택용 리스트
+    private LinkedList<String> equation; //shows entire equation
 
     public Calculator(String title){
         super(title);
@@ -37,20 +35,19 @@ public class Calculator extends JFrame {
     }
 
     public void design(){
-    	operationList = new LinkedList<>();
         equation = new LinkedList<>();
         
         Container ca = this.getContentPane();
         
-        //계산기 디스플레이 UI 설정
+        //Calculator display UI settings
         valueField = new JTextField("0");
         equationField = new JTextField();
         Font fontValue = new Font("Monospace", Font.PLAIN, 60);
         valueField.setFont(fontValue);
         valueField.setEditable(false);
         valueField.setHorizontalAlignment(JTextField.RIGHT);
-        Font fontEquat = new Font("Monospace", Font.PLAIN, 40);
-        equationField.setFont(fontEquat);
+        Font fontEquation = new Font("Monospace", Font.PLAIN, 40);
+        equationField.setFont(fontEquation);
         equationField.setEditable(false);
         equationField.setHorizontalAlignment(JTextField.RIGHT);
 
@@ -80,7 +77,7 @@ public class Calculator extends JFrame {
 
         JButton[] numBotton = new JButton[]{zero, one, two, three, four, five, six, seven, eight, nine};
 
-        //숫자 버튼 actionListener
+        //assign number Button actionListener
         for(int i = 0; i < numBotton.length; i++){
             numBotton[i].addActionListener(new NumBttnAction(valueField, Integer.toString(i), equation));
         }
@@ -92,13 +89,13 @@ public class Calculator extends JFrame {
         leftParen.addActionListener(new OperBttnAction(valueField, equationField, "(", equation));
         rightParen.addActionListener(new OperBttnAction(valueField, equationField, ")", equation));
 
-        //기능 버튼 actionListener
+        //assign utils button actionListener
         equal.addActionListener(new Equal(valueField, equationField, equation));
         clear.addActionListener(new Clear(valueField, equationField, equation));
         clrErr.addActionListener(new ClearErr(valueField, equation));
         back.addActionListener(new Back(valueField, equation));
 
-        //배치하기
+        //position button on JPanel
         final JButton[][] BUTTONS = {
         		{clear, clrErr, back, equal},
         		{seven, eight, nine, divide},
@@ -126,6 +123,4 @@ public class Calculator extends JFrame {
         ca.add(textField,BorderLayout.NORTH);
         ca.add(btnPanel, BorderLayout.CENTER);
     }
-
-
 }

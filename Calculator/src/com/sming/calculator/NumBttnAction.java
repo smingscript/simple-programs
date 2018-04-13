@@ -33,7 +33,7 @@ public class NumBttnAction implements ActionListener{
         returnNum.append(tempNum);
         tempNum.deleteCharAt(0);
         
-        //숫자를 재입력하는 경우에 valudField가 reset
+        //reset valueField if retype a number
         if(isLongNum)
         	setValues = valueField.getText() + returnNum.toString();
         else {

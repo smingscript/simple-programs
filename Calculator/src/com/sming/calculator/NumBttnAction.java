@@ -20,7 +20,7 @@ public class NumBttnAction implements ActionListener{
     
     
     public NumBttnAction(JTextField valueField, String btnText, LinkedList<String> equation) {
-    	this.valueField= valueField;
+        this.valueField= valueField;
         this.btnText = btnText;
         this.equation  = equation;
         isLongNum = false;
@@ -28,17 +28,17 @@ public class NumBttnAction implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent arg0) { 
-    	String setValues;
+        String setValues;
         tempNum.append(btnText) ;
         returnNum.append(tempNum);
         tempNum.deleteCharAt(0);
         
         //reset valueField if retype a number
         if(isLongNum)
-        	setValues = valueField.getText() + returnNum.toString();
+            setValues = valueField.getText() + returnNum.toString();
         else {
-        	valueField.setText("");
-        	setValues = valueField.getText() + returnNum.toString();
+            valueField.setText("");
+            setValues = valueField.getText() + returnNum.toString();
         }
 
         valueField.setText(setValues);   
@@ -47,5 +47,4 @@ public class NumBttnAction implements ActionListener{
         returnNum.deleteCharAt(0);
         isLongNum = true;
     }
-
 }

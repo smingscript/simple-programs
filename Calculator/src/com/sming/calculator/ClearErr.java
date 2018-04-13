@@ -10,7 +10,7 @@ public class ClearErr implements ActionListener {
     /*
     clear whole texts from a input
     */
-	JTextField valueField;
+    JTextField valueField;
     LinkedList<String> equation;
 
     public ClearErr(JTextField valueField, LinkedList<String> equation){
@@ -20,12 +20,12 @@ public class ClearErr implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	int errDigits = valueField.getText().length();
-    	System.out.println(errDigits);
-    	int index = equation.size();
-    	equation.subList(index - errDigits, index).clear();
-    	valueField.setText("0");
-    	NumBttnAction.isLongNum = false;
+        int errDigits = valueField.getText().length();
+        System.out.println(errDigits);
+        int index = equation.size();
+        equation.subList(index - errDigits, index).clear();
+        valueField.setText("0");
+        NumBttnAction.isLongNum = false;
     }
 
 }

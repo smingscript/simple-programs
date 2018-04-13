@@ -97,11 +97,11 @@ public class Calculator extends JFrame {
 
         //position button on JPanel
         final JButton[][] BUTTONS = {
-        		{clear, clrErr, back, equal},
-        		{seven, eight, nine, divide},
-        		{four, five, six, mul},
-        		{one, two, three, minus},
-        		{leftParen, zero, rightParen, plus}
+                {clear, clrErr, back, equal},
+                {seven, eight, nine, divide},
+                {four, five, six, mul},
+                {one, two, three, minus},
+                {leftParen, zero, rightParen, plus}
         };
         
         final Font BTN_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 24);
@@ -109,11 +109,11 @@ public class Calculator extends JFrame {
         JPanel btnPanel = new JPanel(new GridLayout(BUTTONS.length, BUTTONS[0].length));
         
         for (JButton[] jButtons : BUTTONS) {
-			for (JButton jButton : jButtons) {
-				jButton.setFont(BTN_FONT);
-				btnPanel.add(jButton);
-			}
-		}
+            for (JButton jButton : jButtons) {
+                jButton.setFont(BTN_FONT);
+                btnPanel.add(jButton);
+            }
+        }
         
         textField = new JPanel();
         textField.setLayout(new BoxLayout(textField, BoxLayout.Y_AXIS));

@@ -19,8 +19,8 @@ public class Clear implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	OperBttnAction.numbers.clear();
-    	OperBttnAction.operators.clear();
+        OperBttnAction.numbers.clear();
+        OperBttnAction.operators.clear();
         equation.clear();
         valueField.setText("");
         equationField.setText("");

@@ -39,52 +39,52 @@ public class Equal implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	/*
-    	 * calculate remain numbers and operators
-    	 */
-    	lastInput = valueField.getText();
-    	preInput = numbers.pop();
-    	operator = operators.pop();
+        /*
+         * calculate remain numbers and operators
+         */
+        lastInput = valueField.getText();
+        preInput = numbers.pop();
+        operator = operators.pop();
 
-    	left = Integer.parseInt(preInput);
-    	right = Integer.parseInt(lastInput);
-		result = operation.calculate(operator, left, right);
+        left = Integer.parseInt(preInput);
+        right = Integer.parseInt(lastInput);
+        result = operation.calculate(operator, left, right);
 
-		if(!operators.isEmpty()) {
-			numbers.push(Integer.toString(result));
+        if(!operators.isEmpty()) {
+            numbers.push(Integer.toString(result));
 
-			//calculate remain numbers in stack
-			while(true) {	
-				operator = operators.pop();
+            //calculate remain numbers in stack
+            while(true) {
+                operator = operators.pop();
 
-				right = Integer.parseInt(numbers.pop());
-				updateEquationField();
-	    		left = Integer.parseInt(numbers.pop());            		
-	    		result = calculate(operator, left, right);
-	    		
-	    		numbers.push(Integer.toString(result));
-	    		
-	    		if(operators.isEmpty()) {
-	    			break;
-	    		}
-			}
-		}
-		
-		//reset
-		String equations = updateEquationField();
-		OperBttnAction.numbers.clear();
-    	OperBttnAction.operators.clear();
+                right = Integer.parseInt(numbers.pop());
+                updateEquationField();
+                left = Integer.parseInt(numbers.pop());
+                result = calculate(operator, left, right);
+
+                numbers.push(Integer.toString(result));
+
+                if(operators.isEmpty()) {
+                    break;
+                }
+            }
+        }
+
+        //reset
+        String equations = updateEquationField();
+        OperBttnAction.numbers.clear();
+        OperBttnAction.operators.clear();
         equation.clear();
         valueField.setText("");
 
-		//update valueField and equationField to print result
-		operation.updateValueField(Integer.toString(result));
-		equationField.setText(equations);
+        //update valueField and equationField to print result
+        operation.updateValueField(Integer.toString(result));
+        equationField.setText(equations);
 
     }
 
     private String updateEquationField() {
-    	StringBuilder newText = new StringBuilder();
+        StringBuilder newText = new StringBuilder();
 
         for(String text: equation){
             newText.append(text);
@@ -95,26 +95,26 @@ public class Equal implements ActionListener {
     }
 
     protected int calculate(String prevOp, int left, int right) {
-    	int result = 0;
-    	
-    	switch (prevOp) {
-    		case "+":
-    			result = left + right;
-    			break;
-    		case "-":
-    			result = left - right;
-    			break;
-    		case "*":
-    			result = left * right;
-    			break;
-    		case "/":
-    			result = left / right;
-    			break;
-    		default:
-    			break;
-      	}
-    	
-		return result;
+        int result = 0;
+
+        switch (prevOp) {
+            case "+":
+                result = left + right;
+                break;
+            case "-":
+                result = left - right;
+                break;
+            case "*":
+                result = left * right;
+                break;
+            case "/":
+                result = left / right;
+                break;
+            default:
+                break;
+        }
+
+        return result;
     }
 }
 

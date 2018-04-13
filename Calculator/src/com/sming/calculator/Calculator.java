@@ -82,25 +82,25 @@ public class Calculator extends JFrame {
 
         //숫자 버튼 actionListener
         for(int i = 0; i < numBotton.length; i++){
-            numBotton[i].addActionListener(new NumButton(valueField, Integer.toString(i), equation));
+            numBotton[i].addActionListener(new NumBttnAction(valueField, Integer.toString(i), equation));
         }
                
-        plus.addActionListener(new Operation(valueField, equationField, "+", equation));
-        minus.addActionListener(new Operation(valueField, equationField, "-", equation));
-        mul.addActionListener(new Operation(valueField, equationField, "*", equation));
-        divide.addActionListener(new Operation(valueField, equationField, "/", equation));
-        leftParen.addActionListener(new Operation(valueField, equationField, "(", equation));
-        rightParen.addActionListener(new Operation(valueField, equationField, ")", equation));
+        plus.addActionListener(new OperBttnAction(valueField, equationField, "+", equation));
+        minus.addActionListener(new OperBttnAction(valueField, equationField, "-", equation));
+        mul.addActionListener(new OperBttnAction(valueField, equationField, "*", equation));
+        divide.addActionListener(new OperBttnAction(valueField, equationField, "/", equation));
+        leftParen.addActionListener(new OperBttnAction(valueField, equationField, "(", equation));
+        rightParen.addActionListener(new OperBttnAction(valueField, equationField, ")", equation));
 
         //기능 버튼 actionListener
-        equal.addActionListener(new Equal(valueField, equationField));
-        clear.addActionListener(new Clear(valueField, equation));
+        equal.addActionListener(new Equal(valueField, equationField, equation));
+        clear.addActionListener(new Clear(valueField, equationField, equation));
         clrErr.addActionListener(new ClearErr(valueField, equation));
-        back.addActionListener(new Back(valueField));
+        back.addActionListener(new Back(valueField, equation));
 
         //배치하기
         final JButton[][] BUTTONS = {
-        		{clrErr, clear, back, equal},
+        		{clear, clrErr, back, equal},
         		{seven, eight, nine, divide},
         		{four, five, six, mul},
         		{one, two, three, minus},

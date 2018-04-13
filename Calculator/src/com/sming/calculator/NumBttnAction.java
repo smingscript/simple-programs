@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import javax.swing.JTextField;
 
-public class NumButton implements ActionListener{
+public class NumBttnAction implements ActionListener{
     /*
     0 to 9 number Buttons
      */
@@ -19,7 +19,7 @@ public class NumButton implements ActionListener{
     static Boolean isLongNum; 
     
     
-    public NumButton(JTextField valueField, String btnText, LinkedList<String> equation) {
+    public NumBttnAction(JTextField valueField, String btnText, LinkedList<String> equation) {
     	this.valueField= valueField;
         this.btnText = btnText;
         this.equation  = equation;

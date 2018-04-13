@@ -8,7 +8,7 @@ import java.util.Stack;
 
 import javax.swing.JTextField;
 
-public class Operation implements ActionListener {
+public class OperBttnAction implements ActionListener {
     /*
     Plus, Minus, Multiply, Division, Parenthesis
      */
@@ -28,12 +28,12 @@ public class Operation implements ActionListener {
     private int right;
     private int result;
     
-    public Operation(JTextField valueField, JTextField equationField) {
+    public OperBttnAction(JTextField valueField, JTextField equationField) {
     	this.valueField= valueField;
     	this.equationField = equationField;
     }
     
-    public Operation(JTextField valueField, JTextField equationField, String oprText, LinkedList<String> equation) {
+    public OperBttnAction(JTextField valueField, JTextField equationField, String oprText, LinkedList<String> equation) {
     	//화면에 단계 별 계산 결과를 출력하게 위해 필요
     	this.valueField= valueField;
     	
@@ -236,20 +236,20 @@ public class Operation implements ActionListener {
     //GUI의 사용자가 입력한 식이 표시하도록 업데이트
     private void updateEquationField() {
     	//결과를 equationField와 valueField에 저장한다.
-    	String newText = "";
+    	StringBuilder newText = new StringBuilder();
 
         equation.add(currentOp);
         
         for(String text: equation){
-            newText += text;
+            newText.append(text);
         }
-        equationField.setText(newText);
+        equationField.setText(newText.toString());
     }
     
     //결과 값을 GUI에 표시하도록 업데이트
     protected void updateValueField(String result) {
     	//결과를 equationField와 valueField에 저장한다.
     	valueField.setText(result);
-    	NumButton.isLongNum = false;
+    	NumBttnAction.isLongNum = false;
     }
 }

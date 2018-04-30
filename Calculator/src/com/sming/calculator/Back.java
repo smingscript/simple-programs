@@ -17,14 +17,17 @@ public class Back implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String temp = valueField.getText();
-        if(temp.length() <= 1){
-            valueField.setText("0");
-            equation.removeLast();
-            NumBttnAction.isLongNum = false;
-        }else{
-            valueField.setText(temp.substring(0, temp.length()-1));
-            equation.removeLast();
+        if(!equation.isEmpty()){
+            String temp = valueField.getText();
+            if(temp.length() <= 1){
+                if(!valueField.getText().matches("0"))
+                    equation.removeLast();
+                valueField.setText("0");
+                NumBttnAction.isLongNum = false;
+            }else{
+                valueField.setText(temp.substring(0, temp.length()-1));
+                equation.removeLast();
+            }
         }
     }
 }

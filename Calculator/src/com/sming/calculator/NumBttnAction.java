@@ -16,7 +16,7 @@ public class NumBttnAction implements ActionListener{
     private StringBuilder returnNum = new StringBuilder();
     private StringBuilder tempNum = new StringBuilder();
     
-    static Boolean isLongNum; 
+    protected static Boolean isLongNum;
     
     
     public NumBttnAction(JTextField valueField, String btnText, LinkedList<String> equation) {

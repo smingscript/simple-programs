@@ -20,12 +20,14 @@ public class ClearErr implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int errDigits = valueField.getText().length();
-        System.out.println(errDigits);
-        int index = equation.size();
-        equation.subList(index - errDigits, index).clear();
-        valueField.setText("0");
-        NumBttnAction.isLongNum = false;
+        if(!equation.isEmpty()){
+            if(!valueField.getText().matches("0")){
+                int errDigits = valueField.getText().length();
+                int index = equation.size();
+                equation.subList(index - errDigits, index).clear();
+            }
+            valueField.setText("0");
+            NumBttnAction.isLongNum = false;
+        }
     }
-
 }

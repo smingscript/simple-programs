@@ -17,8 +17,6 @@ public class Calculator extends JFrame {
     private JButton plus,minus,mul,divide;
     private JButton equal,back,clear, clrErr;
     private JButton leftParen, rightParen;
-    
-    static StringBuffer op;
 
     private LinkedList<String> equation; //shows entire equation
 
